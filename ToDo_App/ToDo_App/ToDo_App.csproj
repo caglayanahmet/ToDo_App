@@ -193,6 +193,14 @@
     <Compile Include="Migrations\202010211030564_emptymigration.Designer.cs">
       <DependentUpon>202010211030564_emptymigration.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202010211153422_IsCancelledAddedToTodoTable.cs" />
+    <Compile Include="Migrations\202010211153422_IsCancelledAddedToTodoTable.Designer.cs">
+      <DependentUpon>202010211153422_IsCancelledAddedToTodoTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202010211238316_TodoUserIdPropertyAddedToTodoTable.cs" />
+    <Compile Include="Migrations\202010211238316_TodoUserIdPropertyAddedToTodoTable.Designer.cs">
+      <DependentUpon>202010211238316_TodoUserIdPropertyAddedToTodoTable.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\ApplicationDbContext.cs" />
@@ -290,6 +298,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202010211030564_emptymigration.resx">
       <DependentUpon>202010211030564_emptymigration.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202010211153422_IsCancelledAddedToTodoTable.resx">
+      <DependentUpon>202010211153422_IsCancelledAddedToTodoTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202010211238316_TodoUserIdPropertyAddedToTodoTable.resx">
+      <DependentUpon>202010211238316_TodoUserIdPropertyAddedToTodoTable.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

@@ -5,8 +5,11 @@ namespace ToDo_App.Models
 {
     public class Todo
     {
-        [Required]
+        
         public ApplicationUser TodoUser { get; set; }
+
+        [Required]
+        public string TodoUserId { get; set; }
 
         public int Id { get; set; }
 
@@ -26,7 +29,9 @@ namespace ToDo_App.Models
         
         public bool IsDone { get; set; }
 
-        [Required]
+        public bool IsCanceled { get; set; }
+
+        
         public Category Category { get; set; }
     }
 }
