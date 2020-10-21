@@ -1,31 +1,53 @@
-﻿@{
+﻿@model IEnumerable<ToDo_App.Models.Todo>
+
+@{
     ViewBag.Title = "Home Page";
 }
 
-<div class="jumbotron">
-    <h1>ASP.NET</h1>
-    <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS and JavaScript.</p>
-    <p><a href="https://asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
-</div>
+<form class="form-inline pull-right"style="margin-right: 15px;">
+    <div class="form-group">
+        <input type="text" name="beginDateFilter" class="form-control" onfocus="(this.type='date')" placeholder="Begining Date" />
+        <input type="text" name="EndDateFilter" class="form-control" onfocus="(this.type='date')" placeholder="End Date" />
+        <button type="submit" class="btn btn-info mb-2">Filter</button>
+    </div>
+    
+</form>
+<br />  
+<table class="table table-bordered" id="tbltodoindex">
+    
+    <thead>
+    <tr>
+        <th>Id</th>
+        <th>Category</th>
+        <th>Description</th>
+        <th>Duration</th>
+        <th>Date</th>
+        <th>IsDone?</th>
+        <th>Action</th>
+    </tr>
+    </thead>
+    <tbody>
 
-<div class="row">
-    <div class="col-md-4">
-        <h2>Getting started</h2>
-        <p>
-            ASP.NET MVC gives you a powerful, patterns-based way to build dynamic websites that
-            enables a clean separation of concerns and gives you full control over markup
-            for enjoyable, agile development.
-        </p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301865">Learn more &raquo;</a></p>
-    </div>
-    <div class="col-md-4">
-        <h2>Get more libraries</h2>
-        <p>NuGet is a free Visual Studio extension that makes it easy to add, remove, and update libraries and tools in Visual Studio projects.</p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301866">Learn more &raquo;</a></p>
-    </div>
-    <div class="col-md-4">
-        <h2>Web Hosting</h2>
-        <p>You can easily find a web hosting company that offers the right mix of features and price for your applications.</p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301867">Learn more &raquo;</a></p>
-    </div>
-</div>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>@item.Id</td>
+            <td>@item.Category.CategoryName</td>
+            <td>@item.Description</td>
+            <td>@item.Duration</td>
+            <td>@item.DateTime.ToString("dd-MM-yyyy")</td>
+            <td>@(item.IsDone==true?"Done":"Waiting")</td>
+            <td>@Html.ActionLink("Done", "Finish", new { id = item.Id }, new { @class = "btn btn-success" }) @Html.ActionLink("Update", "Update", new { id = item.Id }, new { @class = "btn btn-primary" }) @Html.ActionLink("Delete", "Delete", new { id = item.Id }, new { @class = "btn btn-warning" })</td>
+        </tr>
+    }
+
+    </tbody>
+</table>
+
+@section scripts{
+    <script>
+        $(function () {
+            $("#tbltodoindex").DataTable();
+        });
+    </script>
+}

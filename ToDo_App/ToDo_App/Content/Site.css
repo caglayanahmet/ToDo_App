@@ -38,3 +38,16 @@ textarea {
     color: #fff;
     background-color: #274227;
 }
+
+span.field-validation-error {
+    color: red;
+    font-weight: bold;
+}
+
+div#tbltodoindex_filter {
+    float: right;
+}
+
+form.form-inline.pull-right {
+    margin-top: 25px;
+}
