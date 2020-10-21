@@ -30,6 +30,11 @@ namespace ToDo_App.Controllers
         [HttpPost]
         public ActionResult Create(TodosViewModel viewModel)
         {
+            if (!ModelState.IsValid)
+            {
+                viewModel.Categories = _context.Categories.ToList();
+                return View("Create", viewModel);
+            }
             var todo = new Todo
             {
                 Description = viewModel.Todos.Description,

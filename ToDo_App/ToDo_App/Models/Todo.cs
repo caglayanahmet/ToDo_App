@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
+using ToDo_App.ViewModels;
 
 namespace ToDo_App.Models
 {
@@ -25,6 +26,7 @@ namespace ToDo_App.Models
         public int Duration { get; set; }
 
         [Required]
+        [FutureDateTime]
         public DateTime DateTime { get; set; }
         
         public bool IsDone { get; set; }
