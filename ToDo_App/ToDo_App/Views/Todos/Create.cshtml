@@ -9,6 +9,8 @@
 
 @using (Html.BeginForm("Create", "Todos", FormMethod.Post))
 {
+
+    @Html.AntiForgeryToken()
     <div class="form-group" style="margin-top:15px">
         @Html.LabelFor(m => m.Todos.CategoryId)
         @Html.DropDownListFor(m => m.Todos.CategoryId, new SelectList(Model.Categories, "Id", "CategoryName"), "Select a Category", new { @class = "form-control" })

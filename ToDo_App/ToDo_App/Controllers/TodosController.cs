@@ -28,6 +28,7 @@ namespace ToDo_App.Controllers
 
         [Authorize]
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult Create(TodosViewModel viewModel)
         {
             if (!ModelState.IsValid)
