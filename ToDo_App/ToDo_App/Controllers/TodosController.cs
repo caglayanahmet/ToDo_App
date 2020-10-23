@@ -38,13 +38,13 @@ namespace ToDo_App.Controllers
             }
             var todo = new Todo
             {
-                Description = viewModel.Todos.Description,
+                Description = viewModel.Description,
                 TodoUserId = User.Identity.GetUserId(),
-                DateTime = viewModel.Todos.DateTime,
-                Duration = viewModel.Todos.Duration,
-                CategoryId = viewModel.Todos.CategoryId,
-                IsDone = viewModel.Todos.IsDone,
-                IsCanceled = viewModel.Todos.IsCanceled
+                DateTime = viewModel.DateTime,
+                Duration = viewModel.Duration,
+                CategoryId = viewModel.CategoryId,
+                IsDone = viewModel.IsDone,
+                IsCanceled = false
             };
 
             _context.Todos.Add(todo);

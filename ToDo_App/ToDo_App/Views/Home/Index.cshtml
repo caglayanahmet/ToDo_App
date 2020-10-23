@@ -33,11 +33,29 @@
         <tr>
             <td>@item.Id</td>
             <td>@item.Category.CategoryName</td>
-            <td>@item.Description</td>
+            @if (item.IsDone == true)
+            {
+                <td style="text-decoration: line-through">@item.Description</td>
+            }
+            else
+            {
+            <td id="todo-description">@item.Description</td>
+            }
+
             <td>@item.Duration</td>
             <td>@item.DateTime.ToString("dd-MM-yyyy")</td>
-            <td>@(item.IsDone==true?"Done":"Waiting")</td>
-            <td>@Html.ActionLink("Done", "Finish", new { id = item.Id }, new { @class = "btn btn-success" }) @Html.ActionLink("Update", "Update", new { id = item.Id }, new { @class = "btn btn-primary" }) @Html.ActionLink("Delete", "Delete", new { id = item.Id }, new { @class = "btn btn-warning" })</td>
+            <td>
+                @if (item.IsDone == false)
+                {
+                    <button class="btn btn-default js-isdone-button" data-todo-id="@item.Id">Complete</button>
+                }
+                else
+                {
+                    <i class="glyphicon glyphicon-check"> Done</i>;
+                }
+            </td>
+            <td>
+            </td>
         </tr>
     }
 
@@ -46,8 +64,26 @@
 
 @section scripts{
     <script>
-        $(function () {
+        $(function() {
             $("#tbltodoindex").DataTable();
+        });
+    </script>
+
+    <script>
+        $(document).ready(function() {
+            $(".js-isdone-button").on("click",
+                function (e) {
+
+                    var button = $(e.target);
+                    $.post("/api/isdone",{todoId: button.attr("data-todo-id")})
+                        .done(function() {
+                            button.addClass("hide");
+                            button.closest('tr').find('#todo-description').css('text-decoration',' line-through');
+                        })
+                        .fail(function() {
+                            alert("Failed");
+                        });
+                });
         });
     </script>
 }

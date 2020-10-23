@@ -1,4 +1,6 @@
-﻿using System.Data.Entity;
+﻿using Microsoft.AspNet.Identity;
+using System.Data.Entity;
+using System.Linq;
 using System.Web.Mvc;
 using ToDo_App.Models;
 
@@ -13,9 +15,13 @@ namespace ToDo_App.Controllers
             _context= new ApplicationDbContext();
         }
 
+        [Authorize]
         public ActionResult Index()
         {
-            var todolist = _context.Todos.Include(x => x.Category);
+            var userId = User.Identity.GetUserId();
+            var todolist = _context.Todos.Include(x => x.Category)
+                .Where(x=>x.TodoUserId==userId);
+
             return View(todolist);
         }
 

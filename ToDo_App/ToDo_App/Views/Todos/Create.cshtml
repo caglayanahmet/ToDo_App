@@ -12,40 +12,41 @@
 
     @Html.AntiForgeryToken()
     <div class="form-group" style="margin-top:15px">
-        @Html.LabelFor(m => m.Todos.CategoryId)
-        @Html.DropDownListFor(m => m.Todos.CategoryId, new SelectList(Model.Categories, "Id", "CategoryName"), "Select a Category", new { @class = "form-control",autofocus="autofocus" })
-        @Html.ValidationMessageFor(m => m.Todos.CategoryId)
+        @Html.LabelFor(m => m.CategoryId)
+        @Html.DropDownListFor(m => m.CategoryId, new SelectList(Model.Categories, "Id", "CategoryName"), "Select a Category", new { @class = "form-control",autofocus="autofocus" })
+        @Html.ValidationMessageFor(m => m.CategoryId)
     </div>
     <div class="form-group" style="margin-top:15px">
-        @Html.LabelFor(m => m.Todos.Description)
-        @Html.TextBoxFor(m => m.Todos.Description, new { @class = "form-control",placeholder="Type a Task" })
-        @Html.ValidationMessageFor(m => m.Todos.Description)
+        @Html.LabelFor(m => m.Description)
+        @Html.TextBoxFor(m => m.Description, new { @class = "form-control",placeholder="Type a Task" })
+        @Html.ValidationMessageFor(m => m.Description)
     </div>
     <div class="form-group" style="margin-top:15px">
-        @Html.LabelFor(m => m.Todos.Duration)
-        @Html.TextBoxFor(m => m.Todos.Duration, new { @class = "form-control", placeholder="Example: 60" })
-        @Html.ValidationMessageFor(m => m.Todos.Duration)
+        @Html.LabelFor(m => m.Duration)
+        @Html.TextBoxFor(m => m.Duration, new { @class = "form-control", placeholder="Example: 60" })
+        @Html.ValidationMessageFor(m => m.Duration)
     </div>
     <div class="form-group" style="margin-top:15px">
-        @Html.LabelFor(m => m.Todos.DateTime)
-        @Html.TextBoxFor(m => m.Todos.DateTime, "{0:yyyy-MM-dd}", new { @class = "form-control", type = "date" })
-        @Html.ValidationMessageFor(m => m.Todos.DateTime)
+        @Html.LabelFor(m => m.DateTime)
+        @Html.TextBoxFor(m => m.DateTime, "{0:yyyy-MM-dd}", new { @class = "form-control", type = "date" })
+        @Html.ValidationMessageFor(m => m.DateTime)
     </div>
     <div class="custom-radio" style="margin-top:15px">
         <label>
-            @Html.RadioButtonFor(m => m.Todos.IsDone, true) Done
+            @Html.RadioButtonFor(m => m.IsDone, true) Done
         </label>
         <label>
-            @Html.RadioButtonFor(m => m.Todos.IsDone, false, new { @checked = "checked" }) Waiting
+            @Html.RadioButtonFor(m => m.IsDone, false, new { @checked = "checked" }) Waiting
         </label>
     </div>
-    @Html.HiddenFor(m => m.Todos.Id)
+    @Html.HiddenFor(m => m.Id)
     <button class="btn btn-info" type="submit">Save</button>
 }
 
 @section scripts{
 
     @Scripts.Render("~/bundles/jqueryval")
+    
     <script>
         $(document).ready(function() {
             $('#alert-required').on('click', function() {
