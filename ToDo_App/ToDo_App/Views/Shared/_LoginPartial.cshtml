@@ -6,7 +6,12 @@
     @Html.AntiForgeryToken()
 
         <ul class="nav navbar-nav navbar-right">
-      
+            <li class="li-badge">
+                <a href="#">
+                    <i class="glyphicon glyphicon-bell"></i>
+                    <span class="badge js-badge hide"></span>
+                </a>
+            </li>
             <li class="dropdown">
                 <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="false" aria-expanded="false" aria-labelledby="navbarDropdown">
                     @User.Identity.GetUserName()

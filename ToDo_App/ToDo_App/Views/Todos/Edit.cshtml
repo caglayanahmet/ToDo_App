@@ -1,34 +1,35 @@
-﻿@model ToDo_App.ViewModels.TodosViewModel
+﻿@model ToDo_App.ViewModels.TodosFormViewModel
 @{
-    ViewBag.Title = "Create";
+    ViewBag.Title = "Edit";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Add a Task</h2>
+<h2>Edit</h2>
+
 <p class="alert alert-info" id="alert-required">All fields are required<span><i class="glyphicon glyphicon-remove pull-right"></i></span></p>
 
-@using (Html.BeginForm("Create", "Todos", FormMethod.Post))
+@using (Ajax.BeginForm("Save", "Todos",new AjaxOptions{HttpMethod = "POST"}))
 {
 
     @Html.AntiForgeryToken()
     <div class="form-group" style="margin-top:15px">
         @Html.LabelFor(m => m.CategoryId)
-        @Html.DropDownListFor(m => m.CategoryId, new SelectList(Model.Categories, "Id", "CategoryName"), "Select a Category", new { @class = "form-control",autofocus="autofocus" })
+        @Html.DropDownListFor(m => m.CategoryId, new SelectList(Model.Categories, "Id", "CategoryName"), "Select a Category", new { @class = "form-control", autofocus = "autofocus" })
         @Html.ValidationMessageFor(m => m.CategoryId)
     </div>
     <div class="form-group" style="margin-top:15px">
         @Html.LabelFor(m => m.Description)
-        @Html.TextBoxFor(m => m.Description, new { @class = "form-control",placeholder="Type a Task" })
+        @Html.TextBoxFor(m => m.Description, new { @class = "form-control", placeholder = "Type a Task" })
         @Html.ValidationMessageFor(m => m.Description)
     </div>
     <div class="form-group" style="margin-top:15px">
         @Html.LabelFor(m => m.Duration)
-        @Html.TextBoxFor(m => m.Duration, new { @class = "form-control", placeholder="Example: 60" })
+        @Html.TextBoxFor(m => m.Duration, new { @class = "form-control", placeholder = "Example: 60" })
         @Html.ValidationMessageFor(m => m.Duration)
     </div>
     <div class="form-group" style="margin-top:15px">
         @Html.LabelFor(m => m.DateTime)
-        @Html.TextBoxFor(m => m.DateTime," ",  new { @class = "form-control", placeholder = "Choose a Date", onfocus = "(this.type='date')"  })
+        @Html.TextBoxFor(m => m.DateTime, "{0:yyyy-MM-dd}", new { @class = "form-control", type = "date" })
         @Html.ValidationMessageFor(m => m.DateTime)
     </div>
     <div class="custom-radio" style="margin-top:15px">
@@ -36,7 +37,7 @@
             @Html.RadioButtonFor(m => m.IsDone, true) Done
         </label>
         <label>
-            @Html.RadioButtonFor(m => m.IsDone, false, new { @checked = "checked" }) Waiting
+            @Html.RadioButtonFor(m => m.IsDone, false) Waiting
         </label>
     </div>
     @Html.HiddenFor(m => m.Id)
@@ -46,7 +47,7 @@
 @section scripts{
 
     @Scripts.Render("~/bundles/jqueryval")
-    
+
     <script>
         $(document).ready(function() {
             $('#alert-required').on('click', function() {

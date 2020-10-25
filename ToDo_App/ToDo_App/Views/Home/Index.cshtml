@@ -44,7 +44,7 @@
 
             <td>@item.Duration</td>
             <td>@item.DateTime.ToString("dd-MM-yyyy")</td>
-            <td>
+            <td id="todo-isdone">
                 @if (item.IsDone == false)
                 {
                     <button class="btn btn-default js-isdone-button" data-todo-id="@item.Id">Complete</button>
@@ -54,7 +54,12 @@
                     <i class="glyphicon glyphicon-check"> Done</i>;
                 }
             </td>
-            <td>
+
+            <td class="update-delete-todo-td">
+                <div class="update-delete-todo">
+                    <a href="/Todos/Edit/@item.Id">Edit</a> | <a href="#" class="js-iscancel-button" data-todo-id="@item.Id ">Delete</a>
+                </div>
+                
             </td>
         </tr>
     }
@@ -72,18 +77,64 @@
     <script>
         $(document).ready(function() {
             $(".js-isdone-button").on("click",
-                function (e) {
+                function(e) {
 
                     var button = $(e.target);
-                    $.post("/api/isdone",{todoId: button.attr("data-todo-id")})
+                    $.post("/api/isdone", { todoId: button.attr("data-todo-id") })
                         .done(function() {
-                            button.addClass("hide");
-                            button.closest('tr').find('#todo-description').css('text-decoration',' line-through');
+
+                            var htmlString = '<i class="glyphicon glyphicon-check"> Done</i>';
+                            button.fadeOut(function() {
+                                $(this).addClass('hide');
+                            });
+
+                            $(this).closest('tr').find('#todo-isdone').html(htmlString);
+
+                            button.closest('tr').find('#todo-description').css('text-decoration', ' line-through').fadeIn();
+
+
                         })
                         .fail(function() {
                             alert("Failed");
                         });
                 });
+
+            $(".js-iscancel-button").click(function(e) {
+                var link = $(e.target);
+
+                bootbox.dialog({
+                    title: 'Confirm',
+                    message: "Are you sure to cancel this event?",
+                    size: 'large',
+                    buttons: {
+                        yes: {
+                            label: "Yes",
+                            className: 'btn-danger',
+                            callback: function () {
+                                $.ajax({
+                                    url: "/api/iscanceled/" + link.attr("data-todo-id"),
+                                    method: "DELETE"
+                                })
+                                    .done(function () {
+                                        link.closest("tr").fadeOut(function () {
+                                            $(this).remove();
+                                        });
+                                    })
+                                    .fail(function () {
+                                        alert("Failed!");
+                                    });
+                            }
+                        },
+                        no: {
+                            label: "No",
+                            className: 'btn-default',
+                            callback: function () {
+                                bootbox.hideAll();
+                            }
+                        }
+                    }
+                });
+            });
         });
     </script>
 }

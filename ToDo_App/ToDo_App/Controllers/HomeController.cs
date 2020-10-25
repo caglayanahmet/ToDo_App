@@ -20,7 +20,7 @@ namespace ToDo_App.Controllers
         {
             var userId = User.Identity.GetUserId();
             var todolist = _context.Todos.Include(x => x.Category)
-                .Where(x=>x.TodoUserId==userId);
+                .Where(x=>x.TodoUserId==userId && !x.IsCanceled);
 
             return View(todolist);
         }

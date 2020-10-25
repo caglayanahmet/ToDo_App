@@ -1,0 +1,303 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>ToDo_App - Dashboard</title>
+
+    <!-- Custom fonts for this template-->
+
+    <link href="~/Content/all.min.css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+
+    <!-- Custom styles for this template-->
+
+    <link href="~/Content/sb-admin-2.css" rel="stylesheet" />
+</head>
+
+<body id="page-top">
+    <!-- Page Wrapper -->
+    <div id="wrapper">
+
+        <!-- Content Wrapper -->
+        <div id="content-wrapper" class="d-flex flex-column">
+
+            <!-- Main Content -->
+            <div id="content">
+
+                <!-- Begin Page Content -->
+                <div class="container-fluid">
+
+                    <!-- Page Heading -->
+                    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+                        <h1 class="h3 mb-3 text-gray-800">ToDo Dashboard</h1>
+                        @*<a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-download fa-sm text-white-50"></i> Generate Report</a>*@
+                    </div>
+
+                    <!-- Content Row -->
+                    <div class="row">
+
+                        <!-- Earnings (Monthly) Card Example -->
+                        <div class="col-xl-3 col-md-6 mb-4">
+                            <div class="card border-left-primary shadow h-100 py-2">
+                                <div class="card-body">
+                                    <div class="row no-gutters align-items-center">
+                                        <div class="col mr-2">
+                                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Completed Tasks</div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800">@ViewBag.CompletedTasks</div>
+                                        </div>
+                                        <div class="col-auto">
+                                            <i class="fas fa-calendar fa-2x text-gray-300"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Earnings (Monthly) Card Example -->
+                        <div class="col-xl-3 col-md-6 mb-4">
+                            <div class="card border-left-success shadow h-100 py-2">
+                                <div class="card-body">
+                                    <div class="row no-gutters align-items-center">
+                                        <div class="col mr-2">
+                                            <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Pending Tasks</div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800">@ViewBag.PendingTasks</div>
+                                        </div>
+                                        <div class="col-auto">
+                                            <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Earnings (Monthly) Card Example -->
+                        <div class="col-xl-3 col-md-6 mb-4">
+                            <div class="card border-left-info shadow h-100 py-2">
+                                <div class="card-body">
+                                    <div class="row no-gutters align-items-center">
+                                        <div class="col mr-2">
+                                            <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Ratio of Completion</div>
+                                            <div class="row no-gutters align-items-center">
+                                                <div class="col-auto">
+                                                    <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">@ViewBag.RatioOfCompletion%</div>
+                                                </div>
+                                                <div class="col">
+                                                    <div class="progress progress-sm mr-2">
+                                                        <div class="progress-bar bg-info" role="progressbar" style="width: @ViewBag.RatioPercentage%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-auto">
+                                            <i class="fas fa-clipboard-list fa-2x text-gray-300"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Pending Requests Card Example -->
+                        <div class="col-xl-3 col-md-6 mb-4">
+                            <div class="card border-left-warning shadow h-100 py-2">
+                                <div class="card-body">
+                                    <div class="row no-gutters align-items-center">
+                                        <div class="col mr-2">
+                                            <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">@HttpContext.Current.User.Identity.Name ! @ViewBag.HowMyTasksGoing</div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800"></div>
+                                        </div>
+                                        <div class="col-auto">
+                                            <i class="fas fa-comments fa-2x text-gray-300"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Content Row -->
+
+                    <div class="row">
+
+                        <!-- Area Chart -->
+                        <div class="col-xl-8 col-lg-7">
+                            <div class="card shadow mb-4">
+                                <!-- Card Header - Dropdown -->
+                                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                                    <h4 class="m-0 font-weight-bold text-primary" id="todosoverview">Todos Overview</h4>
+                                    <div class="dropdown no-arrow">
+                                        <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+                                        </a>
+                                        <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink">
+                                            <div class="dropdown-header">Dropdown Header:</div>
+                                            <a class="dropdown-item" href="#">Action</a>
+                                            <a class="dropdown-item" href="#">Another action</a>
+                                            <div class="dropdown-divider"></div>
+                                            <a class="dropdown-item" href="#">Something else here</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Card Body -->
+                                <div class="card-body">
+                                    -
+                                    <div class="chart-area">
+                                        <canvas id="myAreaChart"></canvas>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Pie Chart -->
+                        <div class="col-xl-4 col-lg-5">
+                            <div class="card shadow mb-4">
+                                <!-- Card Header - Dropdown -->
+                                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                                    <h4 class="m-0 font-weight-bold text-primary">Distribution of Categories</h4>
+                                    <div class="dropdown no-arrow">
+                                        <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+                                        </a>
+                                        <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink">
+                                            <div class="dropdown-header">Dropdown Header:</div>
+                                            <a class="dropdown-item" href="#">Action</a>
+                                            <a class="dropdown-item" href="#">Another action</a>
+                                            <div class="dropdown-divider"></div>
+                                            <a class="dropdown-item" href="#">Something else here</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Card Body -->
+
+
+                                <div class="card-body">
+                                    <div class="chart-pie pt-4 pb-2">
+                                        <canvas id="myPieChart"></canvas>
+                                    </div>
+                                    <div id="num1"></div>
+                                    <div class="mt-4 text-center small">
+                                        <span class="mr-2">
+                                            <i class="glyphicon glyphicon-cloud text-success "></i> .Net
+                                        </span>
+                                        <span class="mr-2">
+                                            <i class="glyphicon glyphicon-asterisk text-primary"></i> Wordpress
+                                        </span>
+                                        <span class="mr-2">
+                                            <i class="glyphicon glyphicon-blackboard text-danger"></i> Typing
+                                        </span>
+                                        <span class="mr-2">
+                                            <i class="glyphicon glyphicon-apple text-default"></i> Daily
+                                        </span>
+                                        <span class="mr-2">
+                                            <i class="glyphicon glyphicon-glass text-secondary"></i> JavaScript
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Content Row -->
+                    <div class="row">
+
+                        <!-- Content Column -->
+                        <div class="col-lg-6 mb-4">
+
+                            <!-- Project Card Example -->
+                            <div class="card shadow mb-4">
+                                <div class="card-header py-3">
+                                    <h4 class="m-0 font-weight-bold text-primary">Categories</h4>
+                                </div>
+                                <div class="card-body">
+                                    <h4 class="small font-weight-bold">.NET <span class="float-right hide">@ViewBag.dotnetCompletion%</span></h4>
+                                    <div class="progress mb-4">
+                                        <div id="dotnetcompletion" class="progress-bar bg-danger" role="progressbar" style="width: @ViewBag.dotnetCompletion%" aria-valuenow="" aria-valuemin="0" aria-valuemax="100">@ViewBag.dotnetCompletion</div>
+                                    </div>
+                                    <h4 class="small font-weight-bold">Typing <span class="float-right hide">@ViewBag.typingCompletion%</span></h4>
+                                    <div class="progress mb-4">
+                                        <div id="typingCompletion" class="progress-bar bg-warning" role="progressbar" style="width: @ViewBag.typingCompletion%" aria-valuenow="" aria-valuemin="0" aria-valuemax="100">@ViewBag.typingCompletion</div>
+                                    </div>
+                                    <h4 class="small font-weight-bold">Wordpress <span class="float-right hide">@ViewBag.wordpressCompletion%</span></h4>
+                                    <div class="progress mb-4">
+                                        <div id="wordpressCompletion" class="progress-bar" role="progressbar" style="width: @ViewBag.wordpressCompletion%" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100">@ViewBag.wordpressCompletion</div>
+                                    </div>
+                                    <h4 class="small font-weight-bold">Daily Stuff <span class="float-right hide">@ViewBag.dailyStuffCompletion%</span></h4>
+                                    <div class="progress mb-4">
+                                        <div id="dailystuffCompletion" class="progress-bar bg-info" role="progressbar" style="width: @ViewBag.dailyStuffCompletion%" aria-valuenow="" aria-valuemin="0" aria-valuemax="100">@ViewBag.dailyStuffCompletion</div>
+                                    </div>
+                                    <h4 class="small font-weight-bold">JavaScript/jQuery <span class="float-right hide">@ViewBag.javascriptCompletion%</span></h4>
+                                    <div class="progress">
+                                        <div id="javascriptCompletion" class="progress-bar bg-success" role="progressbar" style="width: @ViewBag.javascriptCompletion%" aria-valuenow="" aria-valuemin="0" aria-valuemax="100">@ViewBag.javascriptCompletion</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <!-- /.container-fluid -->
+
+            </div>
+            <!-- End of Main Content -->
+            <!-- Footer -->
+            <footer class="sticky-footer bg-white">
+                <div class="container my-auto">
+                    <div class="copyright text-center my-auto">
+                        <span>Copyright &copy; ToDoApp 2020</span>
+                    </div>
+                </div>
+            </footer>
+            <!-- End of Footer -->
+
+        </div>
+        <!-- End of Content Wrapper -->
+
+
+    </div>
+
+    @section  scripts{
+        <!-- Bootstrap core JavaScript-->
+        @*<script src="~/Scripts/jquery.min.js"></script>*@
+        <script src="~/Scripts/bootstrap.bundle.min.js"></script>
+        <!-- Core plugin JavaScript-->
+        <script src="~/Scripts/jquery.easing.min.js"></script>
+        <!-- Custom scripts for all pages-->
+        <script src="~/Scripts/sb-admin-2.min.js"></script>
+        <!-- Page level plugins -->
+        <script src="~/Scripts/Chart.min.js"></script>
+        <!-- Page level custom scripts -->
+
+        <script src="~/Scripts/chart-area-demo.js"></script>
+        <script src="~/Scripts/chart-pie-demo.js"></script>
+
+        <script>
+            var todosOverview = $("#todosoverview");
+            todosOverview.onmouseenter = function () {
+                todosOverview.innerHTML = "All the work you have done";
+            };
+            todosOverview.onmouseleave = function () {
+                todosOverview.innerHTML = "Todos Overview";
+            };
+        </script>
+        <script>
+            var testt1 = @ViewBag.DotnetPercentage;
+            function myFunction() {
+                $.get()
+            }
+        </script>
+
+    }
+</body>
+
+</html>

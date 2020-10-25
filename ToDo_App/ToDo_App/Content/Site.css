@@ -39,6 +39,18 @@ textarea {
     background-color: #274227;
 }
 
+/*Bootstrap Popover*/
+.navbar-inverse .li-badge {
+    position: relative;
+}
+
+    .navbar-inverse .li-badge .badge {
+        position: absolute;
+        top: 6px;
+        right: 0;
+        background-color: #FA3E3E;
+    }
+
 span.field-validation-error {
     color: red;
     font-weight: bold;
@@ -51,3 +63,12 @@ div#tbltodoindex_filter {
 form.form-inline.pull-right {
     margin-top: 25px;
 }
+
+.update-delete-todo-td .update-delete-todo {
+    display: none;
+}
+
+.update-delete-todo-td:hover .update-delete-todo {
+    display: inline;
+}
+
