@@ -1,18 +1,18 @@
 ﻿using Microsoft.AspNet.Identity;
-using System.Linq;
 using System.Web.Mvc;
 using ToDo_App.Models;
+using ToDo_App.Persistence;
 using ToDo_App.ViewModels;
 
 namespace ToDo_App.Controllers
 {
     public class TodosController : Controller
     {
-        private readonly ApplicationDbContext _context;
+        private readonly IUnitOfWork _unitOfWork;
 
-        public TodosController()
+        public TodosController(IUnitOfWork unitOfWork)
         {
-            _context = new ApplicationDbContext();
+            _unitOfWork = unitOfWork;
         }
 
         [Authorize]      
@@ -20,7 +20,7 @@ namespace ToDo_App.Controllers
         {
             var viewModel = new TodosViewModel
             {
-                Categories = _context.Categories.ToList()
+                Categories = _unitOfWork.Categories.GetCategoriesList()
             };
 
             return View(viewModel);
@@ -33,7 +33,7 @@ namespace ToDo_App.Controllers
         {
             if (!ModelState.IsValid)
             {
-                viewModel.Categories = _context.Categories.ToList();
+                viewModel.Categories = _unitOfWork.Categories.GetCategoriesList();
                 return View("Create", viewModel);
             }
 
@@ -48,8 +48,8 @@ namespace ToDo_App.Controllers
                 IsCanceled = false
             };
 
-            _context.Todos.Add(todo);
-            _context.SaveChanges();
+            _unitOfWork.AddTodo(todo);
+            _unitOfWork.Complete();
 
             return RedirectToAction("Index","Home");
         }
@@ -58,7 +58,7 @@ namespace ToDo_App.Controllers
         public ActionResult Edit(int id)
         {
             var userId = User.Identity.GetUserId();
-            var todo = _context.Todos.FirstOrDefault(x=>x.Id==id && x.TodoUserId==userId);
+            var todo = _unitOfWork.Todos.GetTodoByIdAndUser(id, userId);
 
             var viewModel = new TodosFormViewModel
             {
@@ -72,17 +72,16 @@ namespace ToDo_App.Controllers
                 
             };
 
-            viewModel.Categories = _context.Categories.ToList();
-            _context.SaveChanges();
+            viewModel.Categories = _unitOfWork.Categories.GetCategoriesList();
+            _unitOfWork.Complete();
 
             return View(viewModel);
-
         }
 
         [HttpPost]
         public ActionResult Save(TodosFormViewModel todoViewModel)
         {
-            var todoItem = _context.Todos.Find(todoViewModel.Id);
+            var todoItem = _unitOfWork.Todos.GetTodoById(todoViewModel);
 
             todoItem.IsDone = todoViewModel.IsDone;
             todoItem.CategoryId = todoViewModel.CategoryId;
@@ -91,7 +90,7 @@ namespace ToDo_App.Controllers
             todoItem.Duration = todoViewModel.Duration;
             todoItem.IsCanceled = todoViewModel.IsCanceled;
             
-            _context.SaveChanges();
+            _unitOfWork.Complete();
 
             return RedirectToAction("index", "Home");
         }

@@ -2,6 +2,7 @@
 using System.Data.Entity;
 using System.Linq;
 using ToDo_App.Models;
+using ToDo_App.ViewModels;
 
 namespace ToDo_App.Persistence.Repositories
 {
@@ -18,6 +19,16 @@ namespace ToDo_App.Persistence.Repositories
         {
             return _context.Todos.Include(x => x.Category)
                 .Where(x => x.TodoUserId == userId && !x.IsCanceled);
+        }
+
+        public Todo GetTodoByIdAndUser(int id, string userId)
+        {
+            return _context.Todos.FirstOrDefault(x => x.Id == id && x.TodoUserId == userId);
+        }
+
+        public Todo GetTodoById(TodosFormViewModel todoViewModel)
+        {
+            return _context.Todos.Find(todoViewModel.Id);
         }
     }
 }
