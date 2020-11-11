@@ -190,6 +190,10 @@
     <Compile Include="Controllers\TodosController.cs" />
     <Compile Include="Dtos\NotificationDto.cs" />
     <Compile Include="Extensions\IntegerExtensions.cs" />
+    <Compile Include="Persistence\IUnitOfWork.cs" />
+    <Compile Include="Persistence\Repositories\ITodoRepository.cs" />
+    <Compile Include="Persistence\Repositories\TodoRepository.cs" />
+    <Compile Include="Persistence\UnitOfWork.cs" />
     <Compile Include="ViewModels\TodosFormViewModel.cs" />
     <Compile Include="Dtos\IsDoneDto.cs" />
     <Compile Include="Global.asax.cs">
