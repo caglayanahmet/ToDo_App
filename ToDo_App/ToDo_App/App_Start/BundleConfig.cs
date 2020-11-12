@@ -23,7 +23,9 @@ namespace ToDo_App
 
             bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
                       "~/Scripts/bootstrap.js",
-                      "~/Scripts/bootbox.min.js"));
+                      "~/Scripts/bootbox.min.js",
+                      "~/Scripts/underscore-min.js",
+                      "~/Scripts/moment.min.js"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",

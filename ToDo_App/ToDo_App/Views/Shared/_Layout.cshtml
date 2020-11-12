@@ -27,7 +27,7 @@
                 </ul>
                 @Html.Partial("_LoginPartial")
             </div>
-        </div>
+        </div> 
     </div>
     <div class="container body-content">
         @RenderBody()
@@ -40,20 +40,50 @@
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
+<script type="text/x-template" id="notifications-template">
+    <ul class="notifications">
+        <%
+        _.each(notifications, function(notification){
+         %>
+        <li><span class="highlight"><%= notification.Description %></span>  <%= notification.dateTime %> at <%= moment(notification.DateTime).format("D MMM") %>.</li>
+        <%
+        })
+        %>
+    </ul>
+</script>
+
 <script>
     $(document).ready(function() {
-        $.getJSON("/api/notifications", function (notifications) {
+        $.getJSON("/api/notifications", function (notifications) { 
+
             if (notifications.length == 0){
                 $(".js-badge").text("Perfect").removeClass('hide')
                     .addClass("animate__animated animate__backInDown");;
                 return;
             }
+
             $(".js-badge").text(notifications.length).removeClass('hide')
                 .addClass("animate__animated animate__backInDown");
 
-            $(".notifications").popover({
+            $(".js-badge").popover({
+                html: true,
+                title: "Daily Tasks",
+                content: function() {
+                    var compiled = _.template($("#notifications-template").html());
+                    return compiled({ notifications: notifications });
+                },
+                placement: "bottom",
+                template: '<div class="popover popover-notifications" role="tooltip"><div class="arrow"></div><h3 class="popover-title"></h3><div class="popover-content"></div></div>'
 
             })
+                .on("shown.bs.popover", function () {
+                $.post("/api/notifications/markAsRead")
+                    .done(function () {
+                        $(".js-notifications-count")
+                            .text("")
+                            .addClass("hide");
+                    });
+            });
         });
 
 
