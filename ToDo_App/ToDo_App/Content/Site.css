@@ -64,13 +64,13 @@ form.form-inline.pull-right {
     margin-top: 25px;
 }
 
-.update-delete-todo-td .update-delete-todo {
+/*.update-delete-todo-td .update-delete-todo {
     display: none;
 }
 
 .update-delete-todo-td:hover .update-delete-todo {
     display: inline;
-}
+}*/
 
 .popover-notifications {
     color: #2f4f4f;

@@ -7,6 +7,7 @@ namespace ToDo_App.Persistence
     {
         ITodoRepository Todos { get; }
         ICategoryRepository Categories { get; }
+        IDashboardRepository Dashboards { get; }
         void AddTodo(Todo todo);
         void Complete();
 

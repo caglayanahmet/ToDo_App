@@ -1,76 +1,48 @@
-﻿using System;
-using System.Data.Entity;
-using System.Linq;
-using System.Web.Mvc;
-using ToDo_App.Extensions;
-using ToDo_App.Models;
+﻿using System.Web.Mvc;
+using ToDo_App.Persistence;
 
 namespace ToDo_App.Controllers
 {
     public class DashboardController : Controller
     {
-        private readonly ApplicationDbContext _context;
+        private readonly IUnitOfWork _unitOfWork;
 
-        public DashboardController()
+        public DashboardController(IUnitOfWork unitOfWork)
         {
-            _context=new ApplicationDbContext();
+            _unitOfWork = unitOfWork;
         }
 
-        // GET: Dashboard
         public ActionResult Index()
         {
-
-
-            float completedTasks = _context.Todos.Include(m => m.Category).Count(x => x.IsDone == true);
+            float completedTasks = _unitOfWork.Dashboards.GetCompletedTasks();
             ViewBag.CompletedTasks = completedTasks;
 
-            var pendingTasks = _context.Todos.Include(m => m.Category).Count(x => x.IsDone == false);
+            var pendingTasks = _unitOfWork.Dashboards.GetPendingTasks();
             ViewBag.PendingTasks = pendingTasks;
 
-            float ratio = (completedTasks / (completedTasks + pendingTasks)) * 100;
-            string ratioOfCompletion = String.Format("{0:0.0}", ratio);
-            ViewBag.RatioOfCompletion = ratioOfCompletion;
+            float ratio = _unitOfWork.Dashboards.CalculateRatio(completedTasks, pendingTasks);
             ViewBag.RatioPercentage = ratio;
 
-            var dotnetPercentage = _context.Todos.Include(m => m.Category).Where(m => m.Category.Id == 1).Sum(m => m.Duration);
-            ViewBag.DotnetPercentage = dotnetPercentage;
+            ViewBag.RatioOfCompletion = _unitOfWork.Dashboards.GetRatioOfCompletion(ratio);
 
-            if (pendingTasks.IsBetween(0, 3, true))
-            {
-                ViewBag.HowMyTasksGoing = "You are doing well";
-            }
-            else if (pendingTasks.IsBetween(4, 6, true))
-            {
-                ViewBag.HowMyTasksGoing = "You have tasks to close";
-            }
-            else if (pendingTasks.IsBetween(6, 9999, true))
-            {
-                ViewBag.HowMyTasksGoing = "You have too much open tasks";
-            }
+            ViewBag.DotnetPercentage = _unitOfWork.Dashboards.GetDotnetPercentage();
 
-            var totalCompletedDuration = _context.Todos.Where(x => x.IsDone).Sum(x => x.Duration);
+            ViewBag.HowMyTasksGoing = _unitOfWork.Dashboards.GetCompletionMessage(pendingTasks);
+
+            var totalCompletedDuration = _unitOfWork.Dashboards.GetTotalCompletedDuration();
             ViewBag.TotalCompletion = totalCompletedDuration;
 
-            var dotnetCompletedDuration = _context.Todos.Where(x => x.IsDone && x.CategoryId == 1).Sum(x => x.Duration);
-            ViewBag.dotnetCompletion = Math.Round(Convert.ToDouble(dotnetCompletedDuration) /
-                Convert.ToDouble(totalCompletedDuration) * 100);
+            var dotnetCompletedDuration = _unitOfWork.Dashboards.GetDotnetCompletedDuration();
+            ViewBag.DotnetCompletion = _unitOfWork.Dashboards.GetDotnetCompletion(dotnetCompletedDuration, totalCompletedDuration);
 
+            var javaScriptCompletedDuration = _unitOfWork.Dashboards.GetJavaScriptCompletedDuration();
+            ViewBag.JavaScriptCompletion = _unitOfWork.Dashboards.GetJavaScriptCompletion(javaScriptCompletedDuration, totalCompletedDuration);
 
-            var typingCompletedDuration = _context.Todos.Where(x => x.IsDone && x.CategoryId == 2).Sum(x => x.Duration);
-            ViewBag.typingCompletion = Math.Round(Convert.ToDouble(typingCompletedDuration) /
-                Convert.ToDouble(totalCompletedDuration) * 100);
+            var universityLecturesCompletedDuration = _unitOfWork.Dashboards.GetUniversityLecturesCompletedDuration();
+            ViewBag.UniversityLecturesCompletion = _unitOfWork.Dashboards.GetUniversityLecturesCompletion(universityLecturesCompletedDuration, totalCompletedDuration);
 
-            var wordpressCompletedDuration = _context.Todos.Where(x => x.IsDone && x.CategoryId == 3).Sum(x => x.Duration);
-            ViewBag.wordpressCompletion = Math.Round(Convert.ToDouble(wordpressCompletedDuration) /
-                Convert.ToDouble(totalCompletedDuration) * 100);
-
-            var dailyStuffCompletionDuration = _context.Todos.Where(x => x.IsDone && x.CategoryId == 4).Sum(x => x.Duration);
-            ViewBag.dailyStuffCompletion = Math.Round(Convert.ToDouble(dailyStuffCompletionDuration)
-                / Convert.ToDouble(totalCompletedDuration) * 100);
-
-            //var javascriptCompletionDuration = _context.Todos.Where(x => x.IsDone && x.CategoryId == 1004).Sum(x => x.Duration);
-            //ViewBag.javascriptCompletion = Math.Round(Convert.ToDouble(javascriptCompletionDuration)
-            //    / Convert.ToDouble(totalCompletedDuration) * 100);
+            var dailyTasksCompletionDuration = _unitOfWork.Dashboards.GetDailyStuffCompletionDuration();
+            ViewBag.DailyTasksCompletion = _unitOfWork.Dashboards.GetDailyStuffCompletion(dailyTasksCompletionDuration, totalCompletedDuration);
 
             return View();
         }

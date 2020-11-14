@@ -114,7 +114,7 @@
                                 <div class="card-body">
                                     <div class="row no-gutters align-items-center">
                                         <div class="col mr-2">
-                                            <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">@HttpContext.Current.User.Identity.Name ! @ViewBag.HowMyTasksGoing</div>
+                                            <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">@HttpContext.Current.User.Identity.Name! @ViewBag.HowMyTasksGoing</div>
                                             <div class="h5 mb-0 font-weight-bold text-gray-800"></div>
                                         </div>
                                         <div class="col-auto">
@@ -191,16 +191,16 @@
                                             <i class="glyphicon glyphicon-cloud text-success "></i> .Net
                                         </span>
                                         <span class="mr-2">
-                                            <i class="glyphicon glyphicon-asterisk text-primary"></i> Wordpress
+                                            <i class="glyphicon glyphicon-asterisk text-primary"></i> JavaScript
                                         </span>
                                         <span class="mr-2">
-                                            <i class="glyphicon glyphicon-blackboard text-danger"></i> Typing
+                                            <i class="glyphicon glyphicon-blackboard text-danger"></i> Lectures
                                         </span>
                                         <span class="mr-2">
                                             <i class="glyphicon glyphicon-apple text-default"></i> Daily
                                         </span>
                                         <span class="mr-2">
-                                            <i class="glyphicon glyphicon-glass text-secondary"></i> JavaScript
+                                            <i class="glyphicon glyphicon-glass text-secondary"></i> Other
                                         </span>
                                     </div>
                                 </div>
@@ -220,25 +220,25 @@
                                     <h4 class="m-0 font-weight-bold text-primary">Categories</h4>
                                 </div>
                                 <div class="card-body">
-                                    <h4 class="small font-weight-bold">.NET <span class="float-right hide">@ViewBag.dotnetCompletion%</span></h4>
+                                    <h4 class="small font-weight-bold">.NET <span class="float-right hide">@ViewBag.DotnetCompletion%</span></h4>
                                     <div class="progress mb-4">
-                                        <div id="dotnetcompletion" class="progress-bar bg-danger" role="progressbar" style="width: @ViewBag.dotnetCompletion%" aria-valuenow="" aria-valuemin="0" aria-valuemax="100">@ViewBag.dotnetCompletion</div>
+                                        <div id="dotnetcompletion" class="progress-bar bg-danger" role="progressbar" style="width: @ViewBag.DotnetCompletion%" aria-valuenow="" aria-valuemin="0" aria-valuemax="100">@ViewBag.DotnetCompletion</div>
                                     </div>
-                                    <h4 class="small font-weight-bold">Typing <span class="float-right hide">@ViewBag.typingCompletion%</span></h4>
+                                    <h4 class="small font-weight-bold">JavaScript <span class="float-right hide">@ViewBag.JavaScriptCompletion%</span></h4>
                                     <div class="progress mb-4">
-                                        <div id="typingCompletion" class="progress-bar bg-warning" role="progressbar" style="width: @ViewBag.typingCompletion%" aria-valuenow="" aria-valuemin="0" aria-valuemax="100">@ViewBag.typingCompletion</div>
+                                        <div id="javascriptCompletion" class="progress-bar bg-warning" role="progressbar" style="width: @ViewBag.JavaScriptCompletion%" aria-valuenow="" aria-valuemin="0" aria-valuemax="100">@ViewBag.JavaScriptCompletion</div>
                                     </div>
-                                    <h4 class="small font-weight-bold">Wordpress <span class="float-right hide">@ViewBag.wordpressCompletion%</span></h4>
+                                    <h4 class="small font-weight-bold">Lectures <span class="float-right hide">@ViewBag.UniversityLecturesCompletion%</span></h4>
                                     <div class="progress mb-4">
-                                        <div id="wordpressCompletion" class="progress-bar" role="progressbar" style="width: @ViewBag.wordpressCompletion%" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100">@ViewBag.wordpressCompletion</div>
+                                        <div id="universityLecturesCompletion" class="progress-bar" role="progressbar" style="width: @ViewBag.UniversityLecturesCompletion%" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100">@ViewBag.UniversityLecturesCompletion</div>
                                     </div>
-                                    <h4 class="small font-weight-bold">Daily Stuff <span class="float-right hide">@ViewBag.dailyStuffCompletion%</span></h4>
+                                    <h4 class="small font-weight-bold">Daily Stuff <span class="float-right hide">@ViewBag.DailyTasksCompletion%</span></h4>
                                     <div class="progress mb-4">
-                                        <div id="dailystuffCompletion" class="progress-bar bg-info" role="progressbar" style="width: @ViewBag.dailyStuffCompletion%" aria-valuenow="" aria-valuemin="0" aria-valuemax="100">@ViewBag.dailyStuffCompletion</div>
+                                        <div id="dailystuffCompletion" class="progress-bar bg-info" role="progressbar" style="width: @ViewBag.DailyTasksCompletion%" aria-valuenow="" aria-valuemin="0" aria-valuemax="100">@ViewBag.DailyTasksCompletion</div>
                                     </div>
-                                    <h4 class="small font-weight-bold">JavaScript/jQuery <span class="float-right hide">@ViewBag.javascriptCompletion%</span></h4>
+                                    <h4 class="small font-weight-bold">Other <span class="float-right hide"></span></h4>
                                     <div class="progress">
-                                        <div id="javascriptCompletion" class="progress-bar bg-success" role="progressbar" style="width: @ViewBag.javascriptCompletion%" aria-valuenow="" aria-valuemin="0" aria-valuemax="100">@ViewBag.javascriptCompletion</div>
+                                        <div  class="progress-bar bg-success" role="progressbar" style="width: 0" aria-valuenow="" aria-valuemin="0" aria-valuemax="100">@ViewBag.javascriptCompletion</div>
                                     </div>
                                 </div>
                             </div>

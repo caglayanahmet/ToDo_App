@@ -6,17 +6,17 @@ Chart.defaults.global.defaultFontColor = '#858796';
 // Pie Chart Example
 var ctx = document.getElementById("myPieChart");
 var dotnet = $("#dotnetcompletion").text();
-var typing = $('#typingCompletion').text();
 var javaScript = $('#javascriptCompletion').text();
+var lectures = $('#universityLecturesCompletion').text();
 var daily = $('#dailystuffCompletion').text();
-var wordpress = $('#wordpressCompletion').text();
+var other = $('#wordpressCompletion').text();
 
 var myPieChart = new Chart(ctx, {
   type: 'doughnut',
   data: {
-    labels: ["wordpress", ".Net", "Typing","Daily Stuff", "JavaScript"],
+    labels: [".Net", "JavaScript", "Lectures","Daily Tasks", "Others"],
     datasets: [{
-        data: [wordpress, dotnet, typing,daily,javaScript],
+        data: [dotnet, javaScript, lectures,daily,other],
       backgroundColor: ['#4e73df', '#1cc88a', '#36b9cc','#121212','#232323'],
       hoverBackgroundColor: ['#2e59d9', '#17a673', '#2c9faf'],
       hoverBorderColor: "rgba(234, 236, 244, 1)",

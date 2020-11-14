@@ -9,12 +9,14 @@ namespace ToDo_App.Persistence
 
         public ITodoRepository Todos { get; private set; }
         public ICategoryRepository Categories { get; private set; }
+        public IDashboardRepository Dashboards { get; private set; }
 
         public UnitOfWork(ApplicationDbContext context)
         {
             _context = context;
             Todos = new TodoRepository(context);
             Categories = new CategoryRepository(context);
+            Dashboards = new DashboardRepository(context);
         }
 
         public void AddTodo(Todo todo)
